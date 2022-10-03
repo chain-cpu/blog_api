@@ -15,7 +15,10 @@ defmodule SntxGraph.PostResolver do
     end
   end
 
-  def get(%{id: id}, _), do: {:ok, Repo.get(Account, id)}
+  def get(%{id: id}, _) do
+    post = Blog.get_post!(id)
+    {:ok, Repo.get(Post, id)}
+  end
 
   def get_all(_, _), do: {:ok, Blog.list_posts()}
 
