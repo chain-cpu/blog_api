@@ -1,0 +1,9 @@
+{
+  userCurrent {
+    email
+    firstName
+    lastName
+    role
+    id
+  }
+}

@@ -1,0 +1,8 @@
+{
+  userProfile {
+    id
+    firstName
+    lastName
+    publicEmail
+  }
+}

@@ -14,16 +14,21 @@ defmodule SntxGraph.Schema do
 
   import_types(SntxGraph.CustomTypes)
   import_types(SntxGraph.UserTypes)
+  import_types(SntxGraph.PostTypes)
 
+  import_types(SntxGraph.PostMutations)
+  import_types(SntxGraph.PostQueries)
   import_types(SntxGraph.UserMutations)
   import_types(SntxGraph.UserQueries)
 
   mutation do
     import_fields(:user_mutations)
+    import_fields(:post_mutations)
   end
 
   query do
     import_fields(:user_queries)
+    import_fields(:post_queries)
   end
 
   def middleware(middleware, _field, %Absinthe.Type.Object{identifier: :mutation}) do

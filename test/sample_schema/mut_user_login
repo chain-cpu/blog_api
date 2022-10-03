@@ -1,0 +1,15 @@
+mutation {
+  userLogin(
+ 	email: "geraldwclemons3@protonmail.com",
+    password: "password"
+  ) {
+    messages {
+      code
+      message
+    }
+    result {
+      token
+    }
+    successful
+  }
+}

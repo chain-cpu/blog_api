@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 14.2
--- Dumped by pg_dump version 14.2
+-- Dumped from database version 12.12 (Ubuntu 12.12-0ubuntu0.20.04.1)
+-- Dumped by pg_dump version 12.12 (Ubuntu 12.12-0ubuntu0.20.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -45,6 +45,52 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: links; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.links (
+    id bigint NOT NULL,
+    url character varying(255),
+    description text,
+    inserted_at timestamp(0) without time zone NOT NULL,
+    updated_at timestamp(0) without time zone NOT NULL
+);
+
+
+--
+-- Name: links_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.links_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: links_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.links_id_seq OWNED BY public.links.id;
+
+
+--
+-- Name: posts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.posts (
+    id uuid NOT NULL,
+    title character varying(255),
+    body text,
+    author character varying(255),
+    inserted_at timestamp(0) without time zone NOT NULL,
+    updated_at timestamp(0) without time zone NOT NULL
+);
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -59,7 +105,7 @@ CREATE TABLE public.schema_migrations (
 --
 
 CREATE TABLE public.user_accounts (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     email character varying(255),
     password_hash character varying(255),
     role public.user_role,
@@ -93,6 +139,29 @@ CREATE TABLE public.user_tokens (
     inserted_at timestamp(0) without time zone NOT NULL,
     updated_at timestamp(0) without time zone NOT NULL
 );
+
+
+--
+-- Name: links id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.links ALTER COLUMN id SET DEFAULT nextval('public.links_id_seq'::regclass);
+
+
+--
+-- Name: links links_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.links
+    ADD CONSTRAINT links_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: posts posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.posts
+    ADD CONSTRAINT posts_pkey PRIMARY KEY (id);
 
 
 --
@@ -133,3 +202,5 @@ CREATE UNIQUE INDEX user_accounts__lower_email_index ON public.user_accounts USI
 INSERT INTO public."schema_migrations" (version) VALUES (20210924135612);
 INSERT INTO public."schema_migrations" (version) VALUES (20210924135641);
 INSERT INTO public."schema_migrations" (version) VALUES (20210927160324);
+INSERT INTO public."schema_migrations" (version) VALUES (20220929075908);
+INSERT INTO public."schema_migrations" (version) VALUES (20221002175818);

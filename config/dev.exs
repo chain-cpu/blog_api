@@ -2,10 +2,12 @@ import Config
 
 # Configure your database
 config :sntx, Sntx.Repo,
-  url: System.get_env("SNTX_DB"),
+  username: "postgres",
+  password: "postgres",
+  database: "community_dev",
+  hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
-  pool_size: 20,
-  queue_target: 5000
+  pool_size: 10
 
 config :sntx, SntxWeb.Endpoint,
   http: [port: System.get_env("SNTX_PORT")],

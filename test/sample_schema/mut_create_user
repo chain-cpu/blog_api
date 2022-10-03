@@ -1,0 +1,24 @@
+mutation {
+  userCreate(
+ 		input: {
+      email: "john@test.com",
+      firstName: "john",
+      lastName: "doe",
+	    password: "password",
+    }
+  ) {
+    messages {
+      code
+      field
+    }
+    result {
+      email
+      firstName
+      lastName
+      id
+      role
+    }
+    successful
+  }
+}
+

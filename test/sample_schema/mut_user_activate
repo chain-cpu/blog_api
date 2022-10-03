@@ -1,0 +1,14 @@
+mutation {
+  userActivate (
+ 		code: ""
+  ) {
+    messages {
+      code
+      message
+    }
+    result {
+      token
+    }
+    successful
+  }
+}

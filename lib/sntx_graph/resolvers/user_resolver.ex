@@ -41,9 +41,12 @@ defmodule SntxGraph.UserResolver do
 
   def get_current(_, %{context: ctx}), do: {:ok, Repo.get(Account, ctx.user.id)}
 
-  def login(args, _) do
+  def login(args, ctx) do
+    IO.puts("ctx: ctx")
     with {:ok, user} <- Auth.login(args),
          {:ok, token, _} <- Guardian.encode_and_sign(user),
+        #  IO.puts("args: #{args}"),
+         # update(%{input: args}, %{context: ctx}),
          true <- Activations.confirmed?(user, :login) do
       {:ok, %{token: token}}
     else
@@ -96,6 +99,7 @@ defmodule SntxGraph.UserResolver do
   end
 
   def update(%{input: input}, %{context: ctx}) do
+
     case Account.update(ctx.user, input) do
       {:ok, user} -> {:ok, user}
       error -> mutation_error_payload(error)
